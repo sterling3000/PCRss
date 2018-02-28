@@ -12,7 +12,21 @@
 @implementation UIImageView (ImageLoader)
 
 - (void)setImageWithUrl: (NSURL * _Nonnull)url {
+    
+    UIActivityIndicatorView *spinner = nil;
+    if (!self.image) {
+        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.hidesWhenStopped = YES;
+        spinner.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+        [self addSubview:spinner];
+        [spinner startAnimating];
+    }
+    
     [[ImageLoader sharedInstance] loadImage:url fromCacheFirst:YES completionBlock:^(UIImage *image, BOOL success, NSError *error) {
+        if (spinner) {
+            [spinner stopAnimating];
+            [spinner removeFromSuperview];
+        }
         if (success) {
             self.alpha = 0;
             self.image = image;

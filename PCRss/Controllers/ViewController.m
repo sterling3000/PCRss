@@ -19,6 +19,7 @@
 @property (nonatomic, strong) FeedDataModel     *dataModel;
 @property (nonatomic, strong) FeedViewModel     *viewModel;
 @property (nonatomic, strong) UICollectionView  *collectionView;
+@property (nonatomic, strong) UIActivityIndicatorView   *spinner;
 
 @end
 
@@ -43,18 +44,20 @@
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = [UIColor whiteColor];
     [_collectionView registerClass:[FeedCell class] forCellWithReuseIdentifier:NSStringFromClass([FeedCell class])];
-    [self.view addSubview:_collectionView];
     _collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:_collectionView];
     
-//    _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
-//    self.view.layoutMargins = UIEdgeInsetsZero;
-//    _collectionView.mar = UIEdgeInsetsZero;
-//    NSLayoutConstraint *layoutTop = [NSLayoutConstraint constraintWithItem:_collectionView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTopMargin multiplier:1 constant:0];
-//    NSLayoutConstraint *layoutBottom = [NSLayoutConstraint constraintWithItem:_collectionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottomMargin multiplier:1 constant:0];
-//    NSLayoutConstraint *layoutLeft = [NSLayoutConstraint constraintWithItem:_collectionView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeftMargin multiplier:1 constant:0];
-//    NSLayoutConstraint *layoutRight = [NSLayoutConstraint constraintWithItem:_collectionView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRightMargin multiplier:1 constant:0];
-//    [NSLayoutConstraint activateConstraints:@[layoutTop, layoutBottom, layoutLeft, layoutRight]];
+    // Show a spinner
+    _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    _spinner.hidesWhenStopped = YES;
+    _spinner.color = [UIColor blueColor];
+    [_spinner startAnimating];
+    [_collectionView addSubview:_spinner];
     
+    // Layout spinner to make sure it always stay in the center
+    _spinner.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints: @[[NSLayoutConstraint constraintWithItem:_spinner attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_collectionView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0], [NSLayoutConstraint constraintWithItem:_spinner attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_collectionView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]]];
+
     // Start loading data
     [_dataModel refreshFeedData];
 }
@@ -139,14 +142,12 @@
 #pragma mark - FeedDataModelDelegate
 
 - (void)feedDataDidLoad:(FeedDataModel *)model {
-    NSLog(@"data loaded");
-    for (Artical *art in model.feedItems) {
-        NSLog(@"artical title: %@", art.title);
-    }
+    [_spinner stopAnimating];
     [_collectionView reloadData];
 }
 
 - (void)feedDataFailedToLoad:(FeedDataModel *)model error:(NSError *)error {
+    [_spinner stopAnimating];
     NSLog(@"feed loading failed with error: %@", error);
 }
 
