@@ -11,26 +11,46 @@
 
 @interface FeedDataModel()
 
-@property (nonatomic, strong) NSMutableArray *items;
+@property (nonatomic, strong) NSMutableArray    *items;
+@property (nonatomic) dispatch_queue_t          dataQueue;
 
 @end
 
 @implementation FeedDataModel
 
+- (id)init {
+    if (self = [super init]) {
+        _items = [[NSMutableArray alloc] init];
+        _dataQueue = dispatch_queue_create("com.data.feed", DISPATCH_QUEUE_SERIAL);
+    }
+    return self;
+}
+
 - (void)refreshFeedData {
     [Api.sharedInstance getRssFeedData: ^(BOOL success, NSError *error, NSArray *data){
         if (success) {
-            [self.items removeAllObjects];
-            [self.items addObjectsFromArray:data];
-            [self.delegate feedDataDidLoad:self];
+            dispatch_sync(_dataQueue, ^{
+                [self.items removeAllObjects];
+                [self.items addObjectsFromArray:data];
+            });
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate feedDataDidLoad:self];
+            });
         } else {
-            [self.delegate feedDataFailedToLoad:self error:error];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate feedDataFailedToLoad:self error:error];
+            });
         }
     }];
 }
 
 - (NSArray *)feedItems {
-    return self.items;
+    __block NSArray *items = nil;
+    dispatch_sync(_dataQueue, ^{
+        items = self.items;
+    });
+    return items;
 }
 
 @end

@@ -13,10 +13,10 @@
 
 - (UICollectionViewFlowLayout * _Nonnull)feedViewLayout;
 
-- (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout* _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView minimumLineSpacingForSectionAtIndex:(NSInteger)section;
+- (CGFloat)collectionView:(UICollectionView * _Nonnull)collectionView minimumLineSpacingForSectionAtIndex:(NSInteger)section;
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
+- (CGFloat)collectionView:(UICollectionView * _Nonnull)collectionView minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
 
 @end

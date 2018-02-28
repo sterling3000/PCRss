@@ -12,6 +12,7 @@
 #import "FeedCell.h"
 #import "Artical.h"
 #import "FeedViewModel.h"
+#import "UIImageView+ImageLoader.h"
 
 @interface ViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FeedDataModelDelegate>
 
@@ -27,6 +28,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    self.title = @"Personal Capital";
+    
+    // Add the refresh button onto the nav bar
+    UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(onRefreshButtonClicked:)];
+    [self.navigationItem setRightBarButtonItem:refresh];
+    
     _dataModel = [[FeedDataModel alloc] init];
     _dataModel.delegate = self;
     
@@ -34,8 +41,19 @@
     _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:_viewModel.feedViewLayout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
+    _collectionView.backgroundColor = [UIColor whiteColor];
     [_collectionView registerClass:[FeedCell class] forCellWithReuseIdentifier:NSStringFromClass([FeedCell class])];
     [self.view addSubview:_collectionView];
+    _collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
+//    _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+//    self.view.layoutMargins = UIEdgeInsetsZero;
+//    _collectionView.mar = UIEdgeInsetsZero;
+//    NSLayoutConstraint *layoutTop = [NSLayoutConstraint constraintWithItem:_collectionView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTopMargin multiplier:1 constant:0];
+//    NSLayoutConstraint *layoutBottom = [NSLayoutConstraint constraintWithItem:_collectionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottomMargin multiplier:1 constant:0];
+//    NSLayoutConstraint *layoutLeft = [NSLayoutConstraint constraintWithItem:_collectionView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeftMargin multiplier:1 constant:0];
+//    NSLayoutConstraint *layoutRight = [NSLayoutConstraint constraintWithItem:_collectionView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRightMargin multiplier:1 constant:0];
+//    [NSLayoutConstraint activateConstraints:@[layoutTop, layoutBottom, layoutLeft, layoutRight]];
     
     // Start loading data
     [_dataModel refreshFeedData];
@@ -44,6 +62,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)onRefreshButtonClicked:(UIResponder *)sender {
+    // Refresh the data loading
+    [_dataModel refreshFeedData];
 }
 
 #pragma mark - UICollectionDataSource, UICollectionDelegate
@@ -74,20 +97,35 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (section == 0) {
-        return 1;
+        return [_dataModel.feedItems count] > 0 ? 1 : 0;
     }
     return MAX([_dataModel.feedItems count]-1, 0);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([FeedCell class]) forIndexPath:indexPath];
+    FeedCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([FeedCell class]) forIndexPath:indexPath];
+    Artical *item = nil;
+    if (indexPath.section == 0) {
+        item = _dataModel.feedItems[0];
+        cell.titleLabel.numberOfLines = 1;
+        cell.titleLabel.text = item.title;
+        cell.descLabel.numberOfLines = 2;
+        cell.descLabel.text = item.desc;
+    } else {
+        item = _dataModel.feedItems[indexPath.item+1];
+        cell.titleLabel.numberOfLines = 2;
+        cell.titleLabel.text = item.title;
+        cell.descLabel.text = nil;
+    }
+    [cell.thumbnail setImageWithUrl:item.thumbnailUrl];
+    
     return cell;
 }
 
 #pragma mark - UIcollectionViewFlowLayout Delegate
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [_viewModel collectionView:collectionView sizeForItemAtIndexPath:indexPath];
+    return [_viewModel collectionView:collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:indexPath];
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
@@ -105,6 +143,7 @@
     for (Artical *art in model.feedItems) {
         NSLog(@"artical title: %@", art.title);
     }
+    [_collectionView reloadData];
 }
 
 - (void)feedDataFailedToLoad:(FeedDataModel *)model error:(NSError *)error {

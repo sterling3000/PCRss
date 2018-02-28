@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface ImageLoader : NSObject
 
-+ (id)sharedInstance;
++ (id _Nonnull)sharedInstance;
+
+- (void)loadImage:(NSURL * _Nonnull)imageUrl fromCacheFirst:(BOOL)fromCache completionBlock:(void(^ _Nullable)(UIImage * _Nullable image, BOOL success, NSError * _Nullable error))completion;
 
 @end

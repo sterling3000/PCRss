@@ -25,6 +25,7 @@
 		20EF695E2042A42D002C9C35 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 20EF695D2042A42D002C9C35 /* libxml2.2.tbd */; };
 		20EF699020452DD8002C9C35 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20EF698F20452DD8002C9C35 /* WebKit.framework */; };
 		20EF699320452F09002C9C35 /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EF699220452F09002C9C35 /* FeedCell.m */; };
+		20EF699A20467E89002C9C35 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EF699920467E89002C9C35 /* ImageCache.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		20EF698F20452DD8002C9C35 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		20EF699120452F09002C9C35 /* FeedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedCell.h; sourceTree = "<group>"; };
 		20EF699220452F09002C9C35 /* FeedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedCell.m; sourceTree = "<group>"; };
+		20EF699820467E89002C9C35 /* ImageCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
+		20EF699920467E89002C9C35 /* ImageCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +195,8 @@
 				20EF69582042A404002C9C35 /* HTMLParser.m */,
 				20EF694D204285FB002C9C35 /* ImageLoader.h */,
 				20EF694E204285FB002C9C35 /* ImageLoader.m */,
+				20EF699820467E89002C9C35 /* ImageCache.h */,
+				20EF699920467E89002C9C35 /* ImageCache.m */,
 				20EF695020428649002C9C35 /* UIImageView+ImageLoader.h */,
 				20EF695120428649002C9C35 /* UIImageView+ImageLoader.m */,
 			);
@@ -305,6 +310,7 @@
 				20EF692D204284F6002C9C35 /* main.m in Sources */,
 				20EF695220428649002C9C35 /* UIImageView+ImageLoader.m in Sources */,
 				20EF694F204285FB002C9C35 /* ImageLoader.m in Sources */,
+				20EF699A20467E89002C9C35 /* ImageCache.m in Sources */,
 				20EF695A2042A404002C9C35 /* HTMLNode.m in Sources */,
 				20EF694C204285CA002C9C35 /* Api.m in Sources */,
 				20EF69552042865D002C9C35 /* DetailViewController.m in Sources */,

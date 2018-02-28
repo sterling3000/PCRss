@@ -20,7 +20,7 @@
 @interface FeedDataModel : NSObject
 
 @property (nonatomic, weak, nullable) id<FeedDataModelDelegate>     delegate;
-@property (nonatomic, nonnull, readonly) NSArray            *feedItems;
+@property (nonatomic, nonnull, readonly) NSArray                *feedItems;
 
 - (void)refreshFeedData;
 
