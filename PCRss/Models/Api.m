@@ -37,6 +37,8 @@
                 NSMutableArray *articals = [[NSMutableArray alloc] init];
                 HTMLNode *channel = [[parser body] findChildTag:@"channel"];
                 NSArray *items = [channel findChildTags:@"item"];
+                
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 
                 for (HTMLNode *item in items) {
                     NSString *title = [[item findChildTag:@"title"] contents];
@@ -49,8 +51,9 @@
                     NSURL *thumbUrl = nil;
                     if (thumb)
                         thumbUrl = [NSURL URLWithString:thumb];
-                    
-                    Artical *art = [[Artical alloc] initWithTitle:title thumbnail:thumbUrl description:desc link:linkUrl];
+                    NSString *dateString = [[item findChildTag:@"pubDate"] contents];
+                    NSDate *date = [formatter dateFromString:dateString];
+                    Artical *art = [[Artical alloc] initWithTitle:title thumbnail:thumbUrl description:desc link:linkUrl publishDate:date];
                     if (art)
                         [articals addObject:art];
                 }

@@ -14,10 +14,12 @@
 @property (nonatomic, strong, nullable) NSURL           *thumbnailUrl;
 @property (nonatomic, strong, nullable) NSString        *desc;
 @property (nonatomic, strong, nullable) NSURL           *link;
+@property (nonatomic, strong, nullable) NSDate          *pubDate;
 
 - (id _Nullable)initWithTitle: (NSString * _Nonnull)title
                     thumbnail: (NSURL * _Nullable)url
                   description: (NSString * _Nullable)desc
-                         link: (NSURL * _Nullable)link;
+                         link: (NSURL * _Nullable)link
+                  publishDate: (NSDate * _Nullable)date;
 
 @end
