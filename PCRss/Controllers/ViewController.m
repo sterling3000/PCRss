@@ -13,7 +13,7 @@
 #import "Artical.h"
 #import "FeedViewModel.h"
 
-@interface ViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface ViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FeedDataModelDelegate>
 
 @property (nonatomic, strong) FeedDataModel     *dataModel;
 @property (nonatomic, strong) FeedViewModel     *viewModel;
@@ -28,12 +28,17 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     _dataModel = [[FeedDataModel alloc] init];
+    _dataModel.delegate = self;
     
+    _viewModel = [[FeedViewModel alloc] init];
     _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:_viewModel.feedViewLayout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     [_collectionView registerClass:[FeedCell class] forCellWithReuseIdentifier:NSStringFromClass([FeedCell class])];
     [self.view addSubview:_collectionView];
+    
+    // Start loading data
+    [_dataModel refreshFeedData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,6 +88,27 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return [_viewModel collectionView:collectionView sizeForItemAtIndexPath:indexPath];
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return [_viewModel collectionView:collectionView minimumLineSpacingForSectionAtIndex:section];
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return [_viewModel collectionView:collectionView minimumInteritemSpacingForSectionAtIndex:section];
+}
+
+#pragma mark - FeedDataModelDelegate
+
+- (void)feedDataDidLoad:(FeedDataModel *)model {
+    NSLog(@"data loaded");
+    for (Artical *art in model.feedItems) {
+        NSLog(@"artical title: %@", art.title);
+    }
+}
+
+- (void)feedDataFailedToLoad:(FeedDataModel *)model error:(NSError *)error {
+    NSLog(@"feed loading failed with error: %@", error);
 }
 
 @end

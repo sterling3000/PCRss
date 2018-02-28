@@ -10,4 +10,8 @@
 
 @interface FeedCell : UICollectionViewCell
 
+@property (nonatomic, strong, readonly) UIImageView *thumbnail;
+@property (nonatomic, strong, readonly) UILabel     *titleLabel;
+@property (nonatomic, strong, readonly) UILabel     *descLabel;
+
 @end
