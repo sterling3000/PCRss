@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		203956C52047E342004ABB7C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 203956C42047E341004ABB7C /* README.md */; };
 		20EF691F204284F6002C9C35 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EF691E204284F6002C9C35 /* AppDelegate.m */; };
 		20EF6922204284F6002C9C35 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EF6921204284F6002C9C35 /* ViewController.m */; };
 		20EF6927204284F6002C9C35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20EF6926204284F6002C9C35 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		203956C42047E341004ABB7C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		20EF691A204284F5002C9C35 /* PCRss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PCRss.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20EF691D204284F6002C9C35 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		20EF691E204284F6002C9C35 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				20EF6928204284F6002C9C35 /* LaunchScreen.storyboard */,
 				20EF692B204284F6002C9C35 /* Info.plist */,
 				20EF692C204284F6002C9C35 /* main.m */,
+				203956C42047E341004ABB7C /* README.md */,
 			);
 			path = PCRss;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				203956C52047E342004ABB7C /* README.md in Resources */,
 				20EF692A204284F6002C9C35 /* LaunchScreen.storyboard in Resources */,
 				20EF6927204284F6002C9C35 /* Assets.xcassets in Resources */,
 			);

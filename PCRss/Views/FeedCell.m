@@ -40,18 +40,22 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    // Add image
+    // Layout the image first
     CGRect imgRect = CGRectMake(0, 0, self.bounds.size.width, round(self.bounds.size.width/2.6));
     _thumbnail.frame = imgRect;
     
     CGFloat contentWidth = self.bounds.size.width - 2 * _xSpacing;
     
+    // Layout the title label which is underneath the image.
     _titleLabel.frame = CGRectMake(_xSpacing, CGRectGetMaxY(imgRect)+_ySpacing, contentWidth, _titleLabel.font.pointSize*_titleLabel.numberOfLines+_ySpacing*2);
+    
+    // Layout the desciption label if necessary
     if (_descLabel) {
         _descLabel.frame = CGRectMake(_xSpacing, CGRectGetMaxY(_titleLabel.frame), contentWidth, _descLabel.font.pointSize*_descLabel.numberOfLines+_ySpacing*2);
     }
 }
 
+/// Lazy initialization in the getter
 - (UILabel *)descLabel {
     if (!_descLabel) {
         _descLabel = [[UILabel alloc] init];

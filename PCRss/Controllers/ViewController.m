@@ -35,11 +35,17 @@
     UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(onRefreshButtonClicked:)];
     [self.navigationItem setRightBarButtonItem:refresh];
     
+    // Create our data model
     _dataModel = [[FeedDataModel alloc] init];
     _dataModel.delegate = self;
     
+    // Create the view model
     _viewModel = [[FeedViewModel alloc] init];
-    _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:_viewModel.feedViewLayout];
+    
+    // Set up the collection view
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.sectionInset = [_viewModel collectionViewLayoutSectionInsets];
+    _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = [UIColor whiteColor];
@@ -69,6 +75,8 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    
+    // Make sure to update layout after we rotate.
     [_collectionView.collectionViewLayout invalidateLayout];
 }
 
@@ -110,6 +118,7 @@
     return MAX([_dataModel.feedItems count]-1, 0);
 }
 
+/// Config each cell here.
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     FeedCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([FeedCell class]) forIndexPath:indexPath];
     Artical *item = nil;
@@ -134,6 +143,7 @@
         cell.titleLabel.font = _viewModel.tileTitleFont;
         cell.descLabel.text = nil;
     }
+    // Pass the image url to the image view of this cell will auto trigger the image loading logic under the hood.
     [cell.thumbnail setImageWithUrl:item.thumbnailUrl];
     
     return cell;

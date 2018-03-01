@@ -21,13 +21,12 @@
 
 @implementation FeedViewModel
 
-- (UICollectionViewFlowLayout *)feedViewLayout {
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.sectionInset = UIEdgeInsetsMake(0, 5, 5, 5);
-    return layout;
+- (UIEdgeInsets)collectionViewLayoutSectionInsets {
+    return UIEdgeInsetsMake(0, 5, 5, 5);
 }
 
 - (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout* _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath {
+    // Here we layout and size the cells for both seconds.
     if (indexPath.section == 0) {
         CGFloat w = collectionView.frame.size.width;
         CGFloat h = round(w / [self imageAspectRatio]);
@@ -88,10 +87,12 @@
     return CGPointMake(5, 5);
 }
 
+/// Desired aspect ratio of the thumbnail image. the ratio is width/height.
 - (CGFloat)imageAspectRatio {
     return 2.6;
 }
 
+/// Platform check
 - (BOOL)isPad {
     return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }

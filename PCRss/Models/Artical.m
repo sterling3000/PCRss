@@ -29,6 +29,7 @@
     return [self validate] ? self : nil;
 }
 
+/// Validation checkup. Here the rule is that if there's no "title", we don't validate this article.
 - (BOOL)validate {
     return _title != nil;
 }

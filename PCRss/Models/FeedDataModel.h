@@ -22,6 +22,7 @@
 @property (nonatomic, weak, nullable) id<FeedDataModelDelegate>     delegate;
 @property (nonatomic, nonnull, readonly) NSArray                *feedItems;
 
+/// Reload content from the RSS feed. The refresh button on the main screen triggers this operation.
 - (void)refreshFeedData;
 
 @end

@@ -10,10 +10,12 @@
 
 @interface FeedCell : UICollectionViewCell
 
+/// UI Components on the cell
 @property (nonatomic, strong, readonly) UIImageView *thumbnail;
 @property (nonatomic, strong, readonly) UILabel     *titleLabel;
 @property (nonatomic, strong, readonly) UILabel     *descLabel;
 
+/// Layout variables that can be set from the outside.
 @property (nonatomic, readwrite) CGFloat            xSpacing;
 @property (nonatomic, readwrite) CGFloat            ySpacing;
 

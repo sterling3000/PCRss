@@ -22,12 +22,14 @@
         [spinner startAnimating];
     }
     
+    // Start loading the image.
     [[ImageLoader sharedInstance] loadImage:url fromCacheFirst:YES completionBlock:^(UIImage *image, BOOL success, NSError *error) {
         if (spinner) {
             [spinner stopAnimating];
             [spinner removeFromSuperview];
         }
         if (success) {
+            // upon success, we want to do a little fading animation so the tiles don't kick in abruptly.
             self.alpha = 0;
             self.image = image;
             [UIView animateWithDuration:.25 animations:^{

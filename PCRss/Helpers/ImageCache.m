@@ -10,6 +10,7 @@
 
 @interface ImageCache()
 
+/// Make sure our cache access runs on its own thread.
 @property (nonatomic) dispatch_queue_t      cacheQueue;
 
 @end
@@ -18,8 +19,11 @@
 
 - (id)init {
     if (self = [super init]) {
+        // Set a small cap so we don't blow up the memory.
         self.countLimit = 20;
         self.totalCostLimit = 1024*1024*1024;
+        
+        // Set up the queue
         _cacheQueue = dispatch_queue_create("com.cache.image", DISPATCH_QUEUE_CONCURRENT);
     }
     return self;

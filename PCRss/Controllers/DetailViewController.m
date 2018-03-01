@@ -48,6 +48,8 @@
     _spinner.color = [UIColor blueColor];
     _spinner.hidesWhenStopped = YES;
     [self.view addSubview:_spinner];
+    
+    // Make the spinner always stay in the center
     _spinner.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints: @[[NSLayoutConstraint constraintWithItem:_spinner attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0], [NSLayoutConstraint constraintWithItem:_spinner attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]]];
     [_spinner startAnimating];

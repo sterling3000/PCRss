@@ -11,7 +11,10 @@
 
 @interface FeedDataModel()
 
+/// Data storage of our feed data
 @property (nonatomic, strong) NSMutableArray    *items;
+
+/// Data access queue for the feed item.
 @property (nonatomic) dispatch_queue_t          dataQueue;
 
 @end
@@ -21,6 +24,8 @@
 - (id)init {
     if (self = [super init]) {
         _items = [[NSMutableArray alloc] init];
+        
+        // handle our data on a separate queue
         _dataQueue = dispatch_queue_create("com.data.feed", DISPATCH_QUEUE_SERIAL);
     }
     return self;
