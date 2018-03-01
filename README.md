@@ -9,3 +9,4 @@ Personal Capital Rss Feed Pulling
 ## Have Not Done:
 1. XML Parser. (The current XML parser in the code was borrowed from a 3rd party lib from Google. )
 2. More UI tweaking.
+3. Image disk cache.
