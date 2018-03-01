@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		203956C52047E342004ABB7C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 203956C42047E341004ABB7C /* README.md */; };
+		203956C62047EE0A004ABB7C /* Artical.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EF6948204285AF002C9C35 /* Artical.m */; };
 		20EF691F204284F6002C9C35 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EF691E204284F6002C9C35 /* AppDelegate.m */; };
 		20EF6922204284F6002C9C35 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EF6921204284F6002C9C35 /* ViewController.m */; };
 		20EF6927204284F6002C9C35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20EF6926204284F6002C9C35 /* Assets.xcassets */; };
@@ -323,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				203956C62047EE0A004ABB7C /* Artical.m in Sources */,
 				20EF6937204284F6002C9C35 /* PCRssTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
