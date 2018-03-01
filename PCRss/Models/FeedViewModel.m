@@ -10,6 +10,7 @@
 #import "FeedCell.h"
 #import "Artical.h"
 
+
 @interface FeedViewModel()
 
 @property (nonatomic, strong) UIFont  *headlineTitleFont;
@@ -63,14 +64,14 @@
 
 - (UIFont *)headlineDescFont {
     if (!_headlineDescFont) {
-        _headlineDescFont = [UIFont fontWithName:@"AvenirNext-Regular" size:12];
+        _headlineDescFont = [UIFont fontWithName:@"AvenirNext-Regular" size:13];
     }
     return _headlineDescFont;
 }
 
 - (UIFont *)tileTitleFont {
     if (!_tileTitleFont) {
-        _tileTitleFont = [UIFont fontWithName:@"AvenirNext-Regular" size:12];
+        _tileTitleFont = [UIFont fontWithName:@"AvenirNext-Regular" size:13];
     }
     return _tileTitleFont;
 }
@@ -91,5 +92,8 @@
     return 2.6;
 }
 
+- (BOOL)isPad {
+    return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+}
 
 @end

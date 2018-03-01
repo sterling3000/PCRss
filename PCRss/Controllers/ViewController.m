@@ -120,8 +120,10 @@
         item = _dataModel.feedItems[0];
         cell.titleLabel.numberOfLines = 1;
         cell.titleLabel.text = item.title;
+        cell.titleLabel.font = _viewModel.headlineTitleFont;
         cell.descLabel.numberOfLines = 2;
-        cell.descLabel.text = item.desc;
+        cell.descLabel.text = [[NSDateFormatter localizedStringFromDate:item.pubDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle] stringByAppendingString: [NSString stringWithFormat:@" - %@", item.desc]];
+        cell.descLabel.font = _viewModel.headlineDescFont;
     } else {
         CGPoint spacing = [_viewModel regularTileTextSpacing];
         cell.xSpacing = spacing.x;
@@ -129,8 +131,8 @@
         item = _dataModel.feedItems[indexPath.item+1];
         cell.titleLabel.numberOfLines = 2;
         cell.titleLabel.text = item.title;
+        cell.titleLabel.font = _viewModel.tileTitleFont;
         cell.descLabel.text = nil;
-        [cell.titleLabel sizeToFit];
     }
     [cell.thumbnail setImageWithUrl:item.thumbnailUrl];
     
