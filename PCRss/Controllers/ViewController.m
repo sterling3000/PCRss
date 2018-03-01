@@ -67,6 +67,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [_collectionView.collectionViewLayout invalidateLayout];
+}
+
 - (void)onRefreshButtonClicked:(UIResponder *)sender {
     // Refresh the data loading
     [_dataModel refreshFeedData];
@@ -109,16 +114,23 @@
     FeedCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([FeedCell class]) forIndexPath:indexPath];
     Artical *item = nil;
     if (indexPath.section == 0) {
+        CGPoint spacing = [_viewModel headlineTextSpacing];
+        cell.xSpacing = spacing.x;
+        cell.ySpacing = spacing.y;
         item = _dataModel.feedItems[0];
         cell.titleLabel.numberOfLines = 1;
         cell.titleLabel.text = item.title;
         cell.descLabel.numberOfLines = 2;
         cell.descLabel.text = item.desc;
     } else {
+        CGPoint spacing = [_viewModel regularTileTextSpacing];
+        cell.xSpacing = spacing.x;
+        cell.ySpacing = spacing.y;
         item = _dataModel.feedItems[indexPath.item+1];
         cell.titleLabel.numberOfLines = 2;
         cell.titleLabel.text = item.title;
         cell.descLabel.text = nil;
+        [cell.titleLabel sizeToFit];
     }
     [cell.thumbnail setImageWithUrl:item.thumbnailUrl];
     

@@ -23,4 +23,8 @@
 
 - (CGFloat)collectionView:(UICollectionView * _Nonnull)collectionView minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
 
+- (CGPoint)headlineTextSpacing;
+
+- (CGPoint)regularTileTextSpacing;
+
 @end

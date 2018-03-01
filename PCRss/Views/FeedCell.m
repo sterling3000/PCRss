@@ -29,12 +29,12 @@
         
         self.layer.borderColor = [UIColor colorWithWhite:0 alpha:.2].CGColor;
         self.layer.borderWidth = 0.5;
-        [self setupAutolayout];
+        
+        // Initial spacing default value
+        _xSpacing = 5.;
+        _ySpacing = 5.;
     }
     return self;
-}
-
-- (void)setupAutolayout {
 }
 
 - (void)layoutSubviews {
@@ -44,12 +44,11 @@
     CGRect imgRect = CGRectMake(0, 0, self.bounds.size.width, round(self.bounds.size.width/2.6));
     _thumbnail.frame = imgRect;
     
-    CGFloat xmargin = 5, ymargin = 5;
-    CGFloat contentWidth = self.bounds.size.width - 2 * xmargin;
+    CGFloat contentWidth = self.bounds.size.width - 2 * _xSpacing;
     
-    _titleLabel.frame = CGRectMake(xmargin, CGRectGetMaxY(imgRect), contentWidth, _titleLabel.font.pointSize*_titleLabel.numberOfLines+ymargin);
+    _titleLabel.frame = CGRectMake(_xSpacing, CGRectGetMaxY(imgRect)+_ySpacing, contentWidth, _titleLabel.font.pointSize*_titleLabel.numberOfLines+_ySpacing*2);
     if (_descLabel) {
-        _descLabel.frame = CGRectMake(xmargin, CGRectGetMaxY(_titleLabel.frame), contentWidth, _descLabel.font.pointSize*_descLabel.numberOfLines+ymargin);
+        _descLabel.frame = CGRectMake(_xSpacing, CGRectGetMaxY(_titleLabel.frame), contentWidth, _descLabel.font.pointSize*_descLabel.numberOfLines+_ySpacing*2);
     }
 }
 
