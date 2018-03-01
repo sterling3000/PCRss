@@ -35,6 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     _webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];

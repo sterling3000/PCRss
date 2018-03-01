@@ -47,9 +47,9 @@
     CGFloat xmargin = 5, ymargin = 5;
     CGFloat contentWidth = self.bounds.size.width - 2 * xmargin;
     
-    _titleLabel.frame = CGRectMake(xmargin, CGRectGetMaxY(imgRect) + ymargin, contentWidth, _titleLabel.font.pointSize*_titleLabel.numberOfLines);
+    _titleLabel.frame = CGRectMake(xmargin, CGRectGetMaxY(imgRect), contentWidth, _titleLabel.font.pointSize*_titleLabel.numberOfLines+ymargin);
     if (_descLabel) {
-        _descLabel.frame = CGRectMake(xmargin, CGRectGetMaxY(_titleLabel.frame), contentWidth, _descLabel.font.pointSize*_descLabel.numberOfLines);
+        _descLabel.frame = CGRectMake(xmargin, CGRectGetMaxY(_titleLabel.frame), contentWidth, _descLabel.font.pointSize*_descLabel.numberOfLines+ymargin);
     }
 }
 

@@ -18,7 +18,9 @@
     
     if (self = [super init]) {
         _title = title;
-        _link = link;
+        _link = nil;
+        if (link)
+            _link = [NSURL URLWithString:[[link absoluteString] stringByAppendingString:@"?displayMobileNavigation=0"]];
         _desc = desc;
         _thumbnailUrl = url;
         _pubDate = date;

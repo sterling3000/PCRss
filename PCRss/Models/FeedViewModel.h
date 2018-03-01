@@ -11,6 +11,10 @@
 
 @interface FeedViewModel : NSObject
 
+@property (nonatomic, readonly, nonnull) UIFont  *headlineTitleFont;
+@property (nonatomic, readonly, nonnull) UIFont  *headlineDescFont;
+@property (nonatomic, readonly, nonnull) UIFont  *tileTitleFont;
+
 - (UICollectionViewFlowLayout * _Nonnull)feedViewLayout;
 
 - (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout* _Nonnull)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
